@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://dpnyeibjoo5cl"]
+
+[ext_resource type="Script" uid="uid://bgmluu3k104ey" path="res://assets/water/buoyancy/mass_calculation.gd" id="1_mmh5b"]
+[ext_resource type="PackedScene" uid="uid://vjiu1w41e48s" path="res://assets/models/ss_norrtelje_1900.glb" id="2_fu3sl"]
+[ext_resource type="Script" uid="uid://drbfbmtifv0qn" path="res://assets/water/buoyancy/buoyant_cell.gd" id="3_wj6i8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82xsv"]
+size = Vector3(44, 8, 8.67642)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2cqfq"]
+size = Vector3(12, 4, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vivmo"]
+resource_local_to_scene = true
+size = Vector3(12, 4, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yaehf"]
+size = Vector3(16, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_074og"]
+size = Vector3(16, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cegan"]
+size = Vector3(10, 3, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_getpj"]
+size = Vector3(42, 8, 8)
+
+[node name="Ferry Simplified Experiment" type="RigidBody3D" unique_id=2107375130 node_paths=PackedStringArray("buoyant_cells", "mesh")]
+transform = Transform3D(1.0000007, 0, 0, 0, 1, 0, 0, 0, 1.0000007, 0, 0, 0)
+gravity_scale = 0.0
+center_of_mass_mode = 1
+inertia = Vector3(94394000, 12910900, 587128)
+linear_velocity = Vector3(2, 0, 0)
+script = ExtResource("1_mmh5b")
+buoyant_cells = [NodePath("AS Cell"), NodePath("FS Cell"), NodePath("MS Cell"), NodePath("MP Cell"), NodePath("FP Cell"), NodePath("AP Cell"), NodePath("Fore Ballast"), NodePath("HullDragVolume")]
+drag_coef_axial = 0.01
+drag_coef_lateral = 0.01
+drag_coef_vertical = 0.01
+drag_coef_yaw = 800.0
+drag_coef_pitch = 200.0
+drag_coef_roll = 1000.0
+mesh = NodePath("HullDragVolume")
+global_mass_multiplier = 0.9
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=686415806]
+transform = Transform3D(0.999998, 0, 2.57045e-07, 0, 0.999998, 0, -2.04891e-07, 0, 0.999998, -0.972511, -3.7498, 3.8147e-06)
+visible = false
+shape = SubResource("BoxShape3D_82xsv")
+debug_color = Color(0.761639, 0.449833, 0.105389, 1)
+
+[node name="Ferry" parent="." unique_id=1524801211 instance=ExtResource("2_fu3sl")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 2, 0)
+
+[node name="FS Cell" type="MeshInstance3D" parent="." unique_id=85155441 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -16, -4.0799217, -0.999285)
+visible = false
+mesh = SubResource("BoxMesh_2cqfq")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="FP Cell" type="MeshInstance3D" parent="." unique_id=972151268 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -16, -4.0799217, 1.988832)
+visible = false
+mesh = SubResource("BoxMesh_vivmo")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="MS Cell" type="MeshInstance3D" parent="." unique_id=999179825 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 6.217248e-15, 0, -1.5543122e-15, 1, 2.4868996e-14, 0, 0, 1, -1.0344391, -5.6660576, -2.230858)
+visible = false
+mesh = SubResource("BoxMesh_yaehf")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="MP Cell" type="MeshInstance3D" parent="." unique_id=113635996 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -1.0776856, -4.0799217, 1.951016)
+visible = false
+mesh = SubResource("BoxMesh_074og")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="AS Cell" type="MeshInstance3D" parent="." unique_id=879178447 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 13.999998, -3.8299217, -2.1880715)
+visible = false
+mesh = SubResource("BoxMesh_vivmo")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="AP Cell" type="MeshInstance3D" parent="." unique_id=1849533425 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 13.999998, -3.8299217, 1.6232145)
+visible = false
+mesh = SubResource("BoxMesh_2cqfq")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 100.0
+calc_f_gravity = true
+
+[node name="Aft Ballast" type="MeshInstance3D" parent="." unique_id=2133180619 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.58, -7, 0)
+visible = false
+mesh = SubResource("BoxMesh_cegan")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 50.0
+engine_force = 400000.0
+
+[node name="Fore Ballast" type="MeshInstance3D" parent="." unique_id=1634268207 node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.58, -7, 0)
+visible = false
+mesh = SubResource("BoxMesh_cegan")
+script = ExtResource("3_wj6i8")
+parent = NodePath("..")
+cell_density_kg_per_m3 = 50.0
+
+[node name="HullDragVolume" type="MeshInstance3D" parent="." unique_id=1947701835]
+transform = Transform3D(1, 8.88178e-16, 0, -1.55431e-15, 1, 3.55271e-15, 0, 0, 1, 0, -3.04366, -9.53674e-07)
+visible = false
+mesh = SubResource("BoxMesh_getpj")
