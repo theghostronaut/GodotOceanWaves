@@ -11,6 +11,8 @@ const WATER_MESH_LOW := preload('res://assets/water/clipmap_low.obj')
 
 enum MeshQuality { LOW, HIGH, HIGH8K }
 
+@export var simulate_in_editor : bool = true
+
 @export_group('Wave Parameters')
 @export_color_no_alpha var water_color : Color = Color(0.1, 0.15, 0.18) :
 	set(value): water_color = value; RenderingServer.global_shader_parameter_set(&'water_color', water_color.srgb_to_linear())
@@ -85,6 +87,9 @@ var update_textures:bool = true
 
 var just_calculated_water:bool = false
 func _process(delta : float) -> void:
+	if not simulate_in_editor && Engine.is_editor_hint():
+		return
+		
 	# Update waves once every 1.0/updates_per_second.
 	just_calculated_water = false
 	if updates_per_second == 0 or time >= next_update_time:
