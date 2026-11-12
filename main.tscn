@@ -39,8 +39,10 @@ fog_depth_curve = 0.25
 fog_depth_begin = 200.0
 fog_depth_end = 350.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
-volumetric_fog_length = 256.0
+volumetric_fog_density = 0.001
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_length = 376.11
 adjustment_enabled = true
 adjustment_brightness = 0.85
 adjustment_contrast = 1.07
@@ -50,16 +52,16 @@ adjustment_saturation = 1.5
 script = ExtResource("2_pw5n6")
 tile_length = Vector2(88, 88)
 wind_speed = 10.0
-wind_direction = 20.0
-fetch_length = 150.0
+wind_direction = -200.0
+fetch_length = 2000.0
 foam_amount = 8.0
 
 [sub_resource type="Resource" id="Resource_luhq0"]
 script = ExtResource("2_pw5n6")
 tile_length = Vector2(57, 57)
 displacement_scale = 0.75
-wind_speed = 5.0
-wind_direction = 15.0
+wind_speed = 10.0
+wind_direction = -20.0
 fetch_length = 150.0
 spread = 0.4
 foam_amount = 0.0
@@ -69,7 +71,8 @@ script = ExtResource("2_pw5n6")
 tile_length = Vector2(16, 16)
 displacement_scale = 0.0
 normal_scale = 0.25
-wind_direction = 20.0
+wind_speed = 10.0
+wind_direction = -20.0
 spread = 0.4
 whitecap = 0.25
 foam_amount = 3.0
@@ -99,8 +102,8 @@ edge_fade = 1.75
 albedo_color = Color(0.937563, 0.704479, 0.474746, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dssde"]
-radius = 2.0
-height = 74.0
+radius = 0.383
+height = 1.0
 radial_segments = 24
 rings = 4
 
@@ -139,7 +142,7 @@ script = ExtResource("1_2cqfq")
 environment = SubResource("Environment_icybu")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1678272001]
-transform = Transform3D(0.945601, -0.0516921, 0.321197, -0.00840572, 0.983084, 0.18296, -0.325221, -0.175707, 0.929171, 0, 10, 0)
+transform = Transform3D(0.16940244, 0.2714945, -0.94741404, -0.3511736, 0.9148385, 0.19936791, 0.9208582, 0.29893345, 0.25031757, 0, 33.0801, 0)
 shadow_bias = 0.0
 shadow_normal_bias = 6.464
 shadow_opacity = 0.8
@@ -149,7 +152,7 @@ shadow_blur = 5.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.369537, 6.387513, 0.53881717)
 
 [node name="Camera" type="Camera3D" parent="Camera Head" unique_id=2088630494]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(0.50901395, 0.35244647, -0.7852938, -1.7898083e-08, 0.91232795, 0.40946043, 0.8607583, -0.20842104, 0.46438763, 1.2268372, 1.246398, 0.14965844)
 script = ExtResource("4_v2yip")
 
 [node name="Ocean Rotation Matcher" type="Node" parent="Camera Head" unique_id=263523558 node_paths=PackedStringArray("nodeToMatch", "nodeToMatchTo")]
@@ -166,6 +169,8 @@ extra_cull_margin = 1000.0
 mesh = ExtResource("6_074og")
 skeleton = NodePath("")
 script = ExtResource("7_s0x5e")
+simulate_in_editor = false
+override_visibility = null
 parameters = Array[ExtResource("2_pw5n6")]([SubResource("Resource_adqv5"), SubResource("Resource_luhq0"), SubResource("Resource_83u3u")])
 mesh_quality = 2
 updates_per_second = 60.0
@@ -198,15 +203,22 @@ volume_db = -30.0
 autoplay = true
 
 [node name="Buoy" type="MeshInstance3D" parent="." unique_id=296097324 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1536865, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.267517, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
 script = ExtResource("16_veajc")
 water = NodePath("../Water")
 
+[node name="Buoy2" type="MeshInstance3D" parent="." unique_id=1576161682 node_paths=PackedStringArray("water")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9975586, 29.358398)
+material_override = SubResource("StandardMaterial3D_wy12m")
+mesh = SubResource("CapsuleMesh_dssde")
+script = ExtResource("16_veajc")
+water = NodePath("../Water")
+
 [node name="Buoy_transparent" type="MeshInstance3D" parent="." unique_id=1156773390 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.8676758, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -6.166992, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_vjgfr")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -214,7 +226,7 @@ script = ExtResource("16_veajc")
 water = NodePath("../Water")
 
 [node name="Ship (Buoyancy Probe)" type="RigidBody3D" parent="." unique_id=2107375130 node_paths=PackedStringArray("buoyant_cells", "mesh")]
-transform = Transform3D(1.0000007, 0, 0, 0, 1, 0, 0, 0, 1.0000007, 0, 0, 0)
+transform = Transform3D(1.0000007, 0, 0, 0, 1, 0, 0, 0, 1.0000007, 0, 7.842108, 0)
 visible = false
 gravity_scale = 0.0
 center_of_mass_mode = 1
@@ -222,82 +234,75 @@ inertia = Vector3(94394000, 12910900, 587128)
 linear_velocity = Vector3(2, 0, 0)
 script = ExtResource("14_2cqfq")
 buoyant_cells = [NodePath("AS Cell"), NodePath("FS Cell"), NodePath("MS Cell"), NodePath("MP Cell"), NodePath("FP Cell"), NodePath("AP Cell"), NodePath("Fore Ballast"), NodePath("Aft Ballast")]
-drag_coef_axial = 0.01
-drag_coef_lateral = 0.01
-drag_coef_vertical = 0.01
-drag_coef_yaw = 800.0
-drag_coef_pitch = 200.0
-drag_coef_roll = 500.0
+drag_coef_yaw = 1000.0
 mesh = NodePath("HullDragVolume")
 
 [node name="Collider" type="CollisionShape3D" parent="Ship (Buoyancy Probe)" unique_id=686415806]
 transform = Transform3D(0.999998, 0, 2.57045e-07, 0, 0.999998, 0, -2.04891e-07, 0, 0.999998, -0.972511, -3.7498, 3.8147e-06)
-visible = false
 shape = SubResource("BoxShape3D_82xsv")
 debug_color = Color(0.761639, 0.449833, 0.105389, 1)
 
 [node name="Ferry" parent="Ship (Buoyancy Probe)" unique_id=1524801211 instance=ExtResource("15_yaehf")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 2, 0)
-visible = false
 
 [node name="FS Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=85155441 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -17.014801, -4.0799217, -2.58855)
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -16, -4.08, -3)
 visible = false
 mesh = SubResource("BoxMesh_2cqfq")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="FP Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=972151268 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -16.947586, -4.0799217, 2.6321788)
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -16, -4.08, 3)
 visible = false
 mesh = SubResource("BoxMesh_82xsv")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="MS Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=999179825 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 6.2172477e-15, 0, -1.5543122e-15, 1, 2.4868996e-14, 0, 0, 1, -1.0344391, -5.6660576, -2.3475158)
+transform = Transform3D(1, 6.217246e-15, 0, -1.5543122e-15, 1, 2.4868996e-14, 0, 0, 1, 0, -4.08, -3)
 visible = false
 mesh = SubResource("BoxMesh_yaehf")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="MP Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=113635996 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, -1.0776856, -4.0799217, 2.3243163)
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 0, -4.08, 3)
 visible = false
 mesh = SubResource("BoxMesh_074og")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="AS Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=879178447 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 15.027593, -3.8299217, -2.5825477)
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 14, -3.83, -2)
 visible = false
 mesh = SubResource("BoxMesh_82xsv")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="AP Cell" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=1849533425 node_paths=PackedStringArray("water", "parent")]
-transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 15.027593, -3.8299217, 2.5547519)
+transform = Transform3D(1, 5.32907e-15, 0, -1.55431e-15, 1, 2.13163e-14, 0, 0, 1, 14, -3.83, 2)
 visible = false
 mesh = SubResource("BoxMesh_2cqfq")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 150.0
+cell_density_kg_per_m3 = 100.0
 calc_f_gravity = true
 
 [node name="Aft Ballast" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=2133180619 node_paths=PackedStringArray("water", "parent")]
@@ -307,7 +312,7 @@ mesh = SubResource("BoxMesh_cegan")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 200.0
+cell_density_kg_per_m3 = 1300.0
 calc_f_gravity = true
 engine_force = 400000.0
 
@@ -318,11 +323,11 @@ mesh = SubResource("BoxMesh_cegan")
 script = ExtResource("16_074og")
 water = NodePath("../../Water")
 parent = NodePath("..")
-cell_density_kg_per_m3 = 200.0
+cell_density_kg_per_m3 = 1100.0
 calc_f_gravity = true
 
 [node name="HullDragVolume" type="MeshInstance3D" parent="Ship (Buoyancy Probe)" unique_id=1947701835]
-transform = Transform3D(1, 8.88178e-16, 0, -1.55431e-15, 1, 3.55271e-15, 0, 0, 1, 0, -3.04366, -9.53674e-07)
+transform = Transform3D(1, 1.55431e-15, 0, -1.55431e-15, 1, 0, 0, 0, 1, 0, -3.0436602, -9.53674e-07)
 visible = false
 mesh = SubResource("BoxMesh_getpj")
 
@@ -330,10 +335,9 @@ mesh = SubResource("BoxMesh_getpj")
 script = ExtResource("17_yaehf")
 oceanTransform = NodePath("../Water")
 buoyancyProbe = NodePath("../Ship (Buoyancy Probe)")
-verticalOffset = 4.0
+verticalOffset = 5.0
 
 [node name="Ocean Mockup" type="Node3D" parent="." unique_id=1303129436]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 top_level = true
 visible = false
 

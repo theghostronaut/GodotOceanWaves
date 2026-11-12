@@ -12,6 +12,7 @@ const WATER_MESH_LOW := preload('res://assets/water/clipmap_low.obj')
 enum MeshQuality { LOW, HIGH, HIGH8K }
 
 @export var simulate_in_editor : bool = true
+@export var override_visibility : bool = false
 @export var hide_in_editor : bool = false
 
 @export_group('Wave Parameters')
@@ -89,11 +90,12 @@ var update_textures:bool = true
 var just_calculated_water:bool = false
 func _process(delta : float) -> void:
 	if Engine.is_editor_hint():
-		visible = !hide_in_editor
+		if override_visibility:
+			visible = !hide_in_editor
 		if not simulate_in_editor:
 			return
 	else:
-		if not visible:
+		if override_visibility && not visible:
 			visible = true
 			
 	# Update waves once every 1.0/updates_per_second.

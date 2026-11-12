@@ -39,6 +39,11 @@ func calculate_and_set_mass_and_inertia() -> void:
 
 func _physics_process(delta: float) -> void:
 	apply_drag();
+	recenter(delta);
+
+func recenter(delta: float) -> void:
+	var centerVector = Vector3(0, position.y, 0)
+	position = centerVector
 
 func apply_drag() -> void:
 	# TODO: Different drag for parts in air vs water
