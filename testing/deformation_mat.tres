@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://csfxf8ojpi7s1"]
+
+[ext_resource type="Shader" uid="uid://cfowf7atrxaqv" path="res://testing/deformation.gdshader" id="1_b8snj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b8snj")
+shader_parameter/displace_obj_position = Vector3(0, 0.4, 0)
+shader_parameter/displace_obj_scale = Vector3(1, 1, 1)
+shader_parameter/displace_obj_strength = 1.0

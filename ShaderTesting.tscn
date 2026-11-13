@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://ng6o4vdpdpqb"]
+
+[ext_resource type="Script" uid="uid://dk0cemy5jg3an" path="res://assets/water/displace_surface.gd" id="1_ac404"]
+[ext_resource type="Material" uid="uid://csfxf8ojpi7s1" path="res://testing/deformation_mat.tres" id="1_tdb3q"]
+[ext_resource type="Script" uid="uid://bqtrj6lb2yvdo" path="res://assets/player/camera.gd" id="3_tbw6x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbw6x"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_sxiho"]
+sky_material = SubResource("ProceduralSkyMaterial_tbw6x")
+
+[sub_resource type="Environment" id="Environment_8xkfl"]
+background_mode = 2
+sky = SubResource("Sky_sxiho")
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a55y4"]
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbw6x"]
+transparency = 1
+albedo_color = Color(0.7176471, 0.5254902, 0.3019608, 0.58431375)
+
+[sub_resource type="SphereMesh" id="SphereMesh_221mh"]
+material = SubResource("StandardMaterial3D_tbw6x")
+
+[node name="ShaderTesting" type="Node3D" unique_id=2098125130 node_paths=PackedStringArray("meshInstance", "displacerObject")]
+script = ExtResource("1_ac404")
+meshInstance = NodePath("MeshInstance3D")
+displacementStrength = 7.695
+displacerObject = NodePath("Node3D")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2023327509]
+environment = SubResource("Environment_8xkfl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1189332928]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=36317283]
+material_override = ExtResource("1_tdb3q")
+mesh = SubResource("PlaneMesh_a55y4")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=779963632]
+transform = Transform3D(1, 0, 0, 0, 0.9958742, -0.09074456, 0, 0.09074456, 0.9958742, 0.014473915, 0.825212, 2.2320704)
+script = ExtResource("3_tbw6x")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=128154470]
+transform = Transform3D(0.58, 0, 0, 0, 0.58, 0, 0, 0, 0.58, -0.08, 0.271, -0.125)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=303138750]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+mesh = SubResource("SphereMesh_221mh")

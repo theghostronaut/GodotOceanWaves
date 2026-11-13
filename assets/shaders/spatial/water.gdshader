@@ -12,7 +12,6 @@ global uniform vec4 water_color : source_color;
 global uniform vec4 foam_color : source_color;
 uniform vec3 depth_color_consumption = vec3(7.5, 22.0, 38.0);
 
-
 uniform float roughness : hint_range(0.0, 1.0) = 0.4;
 uniform float normal_strength : hint_range(0.0, 1.0) = 1.0; // Global normal strength
 uniform sampler2D foam_noise_tex : repeat_enable, filter_linear_mipmap;
@@ -20,13 +19,23 @@ uniform sampler2D foam_noise_tex : repeat_enable, filter_linear_mipmap;
 uniform sampler2D depth_texture : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 
+//group_uniforms objectDisplacement;
+//uniform vec3 displace_obj_position = vec3(0,1,0);
+//uniform float displace_obj_scale = 1.0;
+//uniform float displace_obj_strength = 2.0;
+
+// array
+group_uniforms objectDisplacementArray;
+uniform vec3[3] displace_obj_positions;
+uniform float[3] displace_obj_scales;
+uniform float[3] displace_obj_strengths;
+uniform int displace_obj_amount = 1;
+
 group_uniforms cascade_data;
 uniform vec4 map_scales[MAX_CASCADES];               // Scales for displacement/normal maps. Packed: [uv scale, displacement scale, normal scale]
 global uniform uint num_cascades;
 global uniform sampler2DArray displacements;         // Each layer represents one wave cascade.
 global uniform sampler2DArray normals : hint_normal; // Each layer represents one wave cascade.
-
-uniform vec3 displacement_position;
 
 varying float wave_height;
 varying float foam_factor;
@@ -49,6 +58,54 @@ void vertex() {
 		}
 		VERTEX += displacement * distance_factor;
 		wave_height = displacement.y;
+
+		// Displacement from objects (e.g. push water below ship)
+		// TODO: Make this an array so we can have multiple displacer objects
+		/* float radius = displace_obj_scale;
+		float max = 0.0;
+		
+		float displace_obj_radius = displace_obj_scale/2.0;
+		vec3 displace_obj_position_edge = vec3(
+			displace_obj_position.x, 
+			displace_obj_position.y + displace_obj_radius, 
+			displace_obj_position.z
+			);
+		float distance_vertex_to_obj = length(VERTEX - displace_obj_position_edge);
+		
+		if (radius > 0.0)
+		{
+			float displacementFactor = smoothstep(radius, max, distance_vertex_to_obj);
+			VERTEX.y -= displacementFactor * displace_obj_strength;
+		} */
+
+		// rewriting to array
+
+		if (displace_obj_amount > 0)
+		{
+			for (int i = 0; i < displace_obj_amount; ++i)
+            {
+				vec3 displace_obj_position = displace_obj_positions[i];
+				float displace_obj_scale = displace_obj_scales[i];
+				float displace_obj_strength = displace_obj_strengths[i];
+
+				float radius = displace_obj_scale;
+				float max = 0.0;
+				
+				float displace_obj_radius = displace_obj_scale/2.0;
+				vec3 displace_obj_position_edge = vec3(
+					displace_obj_position.x, 
+					displace_obj_position.y + displace_obj_radius, 
+					displace_obj_position.z
+					);
+				float distance_vertex_to_obj = length(VERTEX - displace_obj_position_edge);
+				
+				if (radius > 0.0)
+				{
+					float displacementFactor = smoothstep(radius, max, distance_vertex_to_obj);
+					VERTEX.y -= displacementFactor * displace_obj_strength;
+				}
+			}
+		}
 	}
 	else
 	{
