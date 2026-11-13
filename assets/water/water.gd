@@ -207,12 +207,12 @@ func get_height(world_pos:Vector3, steps:int=3) -> float:
 	# each cascade is accessed in parameters array
 	# try to implement it just for the first cascade for now
 	var world_pos_xz = Vector2(world_pos.x,world_pos.z)
-	var cam_distance:float = (get_viewport().get_camera_3d().global_position - world_pos).length()
+	#var cam_distance:float = (get_viewport().get_camera_3d().global_position - world_pos).length()
 	var summed_height:float = 0.0
 	for cascade_index in _cpu_displacement_textures.keys():
 		var displacement_scale:float = parameters[cascade_index].displacement_scale
 		var tile_length:Vector2 = parameters[cascade_index].tile_length
-		var d:Vector2 = Vector2.ZERO
+		#var d:Vector2 = Vector2.ZERO
 		var x:Vector2 = world_pos_xz
 		var y:Vector2 = Vector2.ZERO
 		var y_raw:Color=Color.BLACK

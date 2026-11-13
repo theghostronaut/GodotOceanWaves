@@ -26,6 +26,7 @@ global uniform uint num_cascades;
 global uniform sampler2DArray displacements;         // Each layer represents one wave cascade.
 global uniform sampler2DArray normals : hint_normal; // Each layer represents one wave cascade.
 
+uniform vec3 displacement_position;
 
 varying float wave_height;
 varying float foam_factor;

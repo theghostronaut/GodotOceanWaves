@@ -159,7 +159,6 @@ script = ExtResource("4_v2yip")
 script = ExtResource("4_074og")
 nodeToMatch = NodePath("..")
 nodeToMatchTo = NodePath("../../Water")
-matchSpeed = 60.0
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=1291183150]
 sorting_offset = 999.0
@@ -170,7 +169,6 @@ mesh = ExtResource("6_074og")
 skeleton = NodePath("")
 script = ExtResource("7_s0x5e")
 simulate_in_editor = false
-override_visibility = null
 parameters = Array[ExtResource("2_pw5n6")]([SubResource("Resource_adqv5"), SubResource("Resource_luhq0"), SubResource("Resource_83u3u")])
 mesh_quality = 2
 updates_per_second = 60.0
@@ -203,7 +201,7 @@ volume_db = -30.0
 autoplay = true
 
 [node name="Buoy" type="MeshInstance3D" parent="." unique_id=296097324 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.267517, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5083008, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -211,14 +209,15 @@ script = ExtResource("16_veajc")
 water = NodePath("../Water")
 
 [node name="Buoy2" type="MeshInstance3D" parent="." unique_id=1576161682 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9975586, 29.358398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2475586, 29.358398)
+visible = false
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
 script = ExtResource("16_veajc")
 water = NodePath("../Water")
 
 [node name="Buoy_transparent" type="MeshInstance3D" parent="." unique_id=1156773390 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -6.166992, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5361328, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_vjgfr")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -331,9 +330,9 @@ transform = Transform3D(1, 1.55431e-15, 0, -1.55431e-15, 1, 0, 0, 0, 1, 0, -3.04
 visible = false
 mesh = SubResource("BoxMesh_getpj")
 
-[node name="Reverse Buoyancy" type="Node" parent="." unique_id=1885467326 node_paths=PackedStringArray("oceanTransform", "buoyancyProbe")]
+[node name="Reverse Buoyancy" type="Node" parent="." unique_id=1885467326 node_paths=PackedStringArray("target", "buoyancyProbe")]
 script = ExtResource("17_yaehf")
-oceanTransform = NodePath("../Water")
+target = NodePath("../Water")
 buoyancyProbe = NodePath("../Ship (Buoyancy Probe)")
 verticalOffset = 5.0
 

@@ -20,3 +20,4 @@ shader_parameter/roughness = 0.65
 shader_parameter/normal_strength = 1.0
 shader_parameter/foam_noise_tex = SubResource("NoiseTexture2D_rrnu2")
 shader_parameter/map_scales = PackedVector4Array(0.011363637, 0.011363637, 1, 1, 0.01754386, 0.01754386, 0.75, 1, 0.0625, 0.0625, 0, 0.25)
+shader_parameter/displacement_position = Vector3(30.595898, 9.971943, 59.823395)

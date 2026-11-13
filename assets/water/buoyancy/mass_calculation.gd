@@ -139,10 +139,11 @@ func apply_drag_vertical() -> void:
 	if debug:
 		DebugDraw3D.draw_arrow(global_position, global_position+(vertical_drag * DEBUG_FORCE_SCALE), Color(0, 1, 0));
 
-func calculate_drag_torque(area, length, angular_velocity, drag_coef) -> float:
+# renamed angular_velocity var to _local_angular_velocity as it was shadowing the rigidbody 3d base class var
+func calculate_drag_torque(area, length, local_angular_velocity, drag_coef) -> float:
 	# .25 because average moment arm is half the length of the half of the ship
-	var torque_magnitude = (0.5 * WATER_MASS_DENSITY * angular_velocity * angular_velocity * area * drag_coef * length * 0.25)
-	if angular_velocity > 0:
+	var torque_magnitude = (0.5 * WATER_MASS_DENSITY * local_angular_velocity * local_angular_velocity * area * drag_coef * length * 0.25)
+	if local_angular_velocity > 0:
 		return - torque_magnitude
 	else:
 		return torque_magnitude
