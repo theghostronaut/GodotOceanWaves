@@ -1,6 +1,7 @@
 extends Node
 
 @export var ocean : Node3D
+@export var oceanSurfaceDisplacement : Node3D
 @export var sun : Node3D
 @export var buoyancyProbe : Node3D
 @export var oceanVerticalOffset : float
@@ -31,6 +32,13 @@ func process_ocean(delta: float) -> void:
 	# rotation
 	var targetRotation = Quaternion(buoyancyProbe.basis.y, Vector3.UP)
 	ocean.basis = Basis(targetRotation)
+
+	# ocean object displacement
+	if oceanSurfaceDisplacement == null:
+		return
+	
+	oceanSurfaceDisplacement.global_position = targetPosition
+	oceanSurfaceDisplacement.basis = Basis(targetRotation)
 
 func process_sun(delta: float) -> void:
 	if sun == null:

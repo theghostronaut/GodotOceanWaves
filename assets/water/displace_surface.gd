@@ -12,6 +12,7 @@ extends Node3D
 
 var material
 
+
 func _ready() -> void:
 	material = meshInstance.get_material_override()
 
@@ -36,8 +37,19 @@ func _process(delta):
 	if displacerObjects.size() <= 0:
 		return
 
+	# send arrays to the shader for positions, scales and strengths.
+	# not required to run in process, only for debugging during editing.
+
+	var displacerObjectPositions: Array[Vector3]
+	var displacerObjectScales: Array[float]
+	var displacerObjectStrengths: Array[float]
+
 	for displacerObject in displacerObjects:
-		material.set_shader_parameter(positionPropertyName, displacerObject.position);
-		material.set_shader_parameter(scalePropertyName, displacerObject.scale.x);
-		material.set_shader_parameter(strengthPropertyName, displacerObject.displacementStrength);
+		displacerObjectPositions.append(displacerObject.position)
+		displacerObjectScales.append(displacerObject.scale.x)
+		displacerObjectStrengths.append(displacerObject.displacementStrength)
+	
+	material.set_shader_parameter(positionPropertyName, displacerObjectPositions)
+	material.set_shader_parameter(scalePropertyName, displacerObjectScales)
+	material.set_shader_parameter(strengthPropertyName, displacerObjectStrengths)
 		
