@@ -13,7 +13,7 @@ var should_render_imgui := not Engine.is_editor_hint()
 
 @onready var viewport : Variant = Engine.get_singleton(&'EditorInterface').get_editor_viewport_3d(0) if Engine.is_editor_hint() else get_viewport()
 @onready var camera : Variant = viewport.get_camera_3d()
-@onready var water := $Water
+@onready var water := $World/Ocean
 
 # References to various parameters (for imgui)
 @onready var _camera_fov := [camera.fov]
