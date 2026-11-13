@@ -135,18 +135,29 @@ size = Vector3(42, 8, 8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_a55y4"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_221mh"]
+
 [node name="Main" type="Node3D" unique_id=1773047949]
 script = ExtResource("1_2cqfq")
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1812241905]
 environment = SubResource("Environment_icybu")
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1678272001]
-transform = Transform3D(0.16940244, 0.2714945, -0.94741404, -0.3511736, 0.9148385, 0.19936791, 0.9208582, 0.29893345, 0.25031757, 0, 33.0801, 0)
+[node name="World" type="Node3D" parent="." unique_id=151841147]
+
+[node name="Sun" type="DirectionalLight3D" parent="World" unique_id=1678272001]
+transform = Transform3D(0.16940245, 0.27149454, -0.94741416, -0.35117364, 0.91483855, 0.19936793, 0.92085826, 0.29893348, 0.2503176, 0, 33.0801, 0)
+shadow_enabled = true
 shadow_bias = 0.0
 shadow_normal_bias = 6.464
 shadow_opacity = 0.8
 shadow_blur = 5.0
+
+[node name="Reverse Buoyancy" type="Node" parent="World" unique_id=1885467326 node_paths=PackedStringArray("target", "buoyancyProbe")]
+script = ExtResource("17_yaehf")
+target = NodePath("../../Water")
+buoyancyProbe = NodePath("../../Ship (Buoyancy Probe)")
+verticalOffset = 5.0
 
 [node name="Camera Head" type="Node3D" parent="." unique_id=926081757]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.369537, 6.387513, 0.53881717)
@@ -330,12 +341,6 @@ transform = Transform3D(1, 1.55431e-15, 0, -1.55431e-15, 1, 0, 0, 0, 1, 0, -3.04
 visible = false
 mesh = SubResource("BoxMesh_getpj")
 
-[node name="Reverse Buoyancy" type="Node" parent="." unique_id=1885467326 node_paths=PackedStringArray("target", "buoyancyProbe")]
-script = ExtResource("17_yaehf")
-target = NodePath("../Water")
-buoyancyProbe = NodePath("../Ship (Buoyancy Probe)")
-verticalOffset = 5.0
-
 [node name="Ocean Mockup" type="Node3D" parent="." unique_id=1303129436]
 top_level = true
 visible = false
@@ -345,5 +350,16 @@ transform = Transform3D(95, 0, 0, 0, 1, 0, 0, 0, 95, 0, 0, 0)
 mesh = SubResource("BoxMesh_a55y4")
 skeleton = NodePath("../..")
 
-[node name="Ship Actual" parent="." unique_id=510121189 instance=ExtResource("15_yaehf")]
+[node name="Ship Actual" type="Node3D" parent="." unique_id=398072818]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 9, 0)
+
+[node name="Ship Debug Mesh" parent="Ship Actual" unique_id=510121189 instance=ExtResource("15_yaehf")]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship Actual" unique_id=1831219320]
+transform = Transform3D(14.319475, 0, 0, 0, 2.2887979, 0, 0, 0, 2.130731, 0, -2.6373646, 0)
+mesh = SubResource("BoxMesh_221mh")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship Actual" unique_id=1715369998]
+transform = Transform3D(0.3528275, 0, 0, 0, 3.116927, 0, 0, 0, 0.26250064, -5.4426527, -0.2544434, 0)
+mesh = SubResource("BoxMesh_221mh")
