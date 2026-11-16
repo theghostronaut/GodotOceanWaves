@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://cty5x2f17ead3" path="res://assets/player/waveheight_script.gd" id="16_veajc"]
 [ext_resource type="Script" uid="uid://dda1ndhhnmolo" path="res://assets/scripts/world_rotation.gd" id="17_yaehf"]
 [ext_resource type="Script" uid="uid://dk0cemy5jg3an" path="res://assets/water/surface_displacement.gd" id="19_cegan"]
+[ext_resource type="PackedScene" uid="uid://d2s803s6n7j0s" path="res://assets/ship/Ship_Blockout.glb" id="21_getpj"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_t7jwl"]
 panorama = ExtResource("3_0ksgj")
@@ -31,6 +32,8 @@ sky_material = SubResource("PanoramaSkyMaterial_t7jwl")
 background_mode = 2
 sky = SubResource("Sky_vroi3")
 tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.272954, 0.419272, 0.484632, 1)
 fog_sun_scatter = 0.05
@@ -41,9 +44,9 @@ fog_depth_curve = 0.25
 fog_depth_begin = 200.0
 fog_depth_end = 350.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.001
+volumetric_fog_density = 0.0036
 volumetric_fog_emission = Color(1, 1, 1, 1)
-volumetric_fog_emission_energy = 0.2
+volumetric_fog_emission_energy = 0.1
 volumetric_fog_length = 376.11
 adjustment_enabled = true
 adjustment_brightness = 0.85
@@ -206,74 +209,74 @@ script = ExtResource("12_82xsv")
 displacement_strength = 50
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Displacer7" unique_id=1123886523]
+visible = false
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Ocean Surface Displacement2" type="Node3D" parent="World" unique_id=1917161655 node_paths=PackedStringArray("mesh_instance", "displacer_objects")]
+[node name="Ocean Surface Displacement2" type="Node3D" parent="World/Ocean Surface Displacement" unique_id=1917161655 node_paths=PackedStringArray("mesh_instance", "displacer_objects")]
 process_mode = 4
 visible = false
 script = ExtResource("19_cegan")
-mesh_instance = NodePath("../Ocean")
+mesh_instance = NodePath("../../Ocean")
 displacer_objects = [NodePath("Displacer"), NodePath("Displacer2"), NodePath("Displacer3"), NodePath("Displacer4"), NodePath("Displacer5"), NodePath("Displacer6")]
-update_in_process = null
 
-[node name="Displacer" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=224294847]
+[node name="Displacer" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=224294847]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, -17.857645, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer" unique_id=1191313771]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer" unique_id=1191313771]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer2" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=1190561392]
+[node name="Displacer2" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=1190561392]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, -10.540409, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer2" unique_id=1686887403]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer2" unique_id=1686887403]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer3" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=156799900]
+[node name="Displacer3" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=156799900]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, -3.1589851, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer3" unique_id=1203642379]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer3" unique_id=1203642379]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer4" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=628198775]
+[node name="Displacer4" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=628198775]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, 3.195458, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer4" unique_id=470297069]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer4" unique_id=470297069]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer5" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=1255820233]
+[node name="Displacer5" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=1255820233]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, 9.646179, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer5" unique_id=605447041]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer5" unique_id=605447041]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer6" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=2047818283]
+[node name="Displacer6" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=2047818283]
 transform = Transform3D(8.791154, 0, 0, 0, 8.791154, 0, 0, 0, 8.791154, 15.840157, -0.9907522, -0.17059374)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer6" unique_id=986127114]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer6" unique_id=986127114]
 mesh = SubResource("SphereMesh_221mh")
 
-[node name="Displacer7" type="Node3D" parent="World/Ocean Surface Displacement2" unique_id=2011757526]
+[node name="Displacer7" type="Node3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2" unique_id=2011757526]
 transform = Transform3D(61.588398, 0, 0, 0, 61.588398, 0, 0, 0, 61.588398, -1.6003342, 53.184124, -2.1084218)
 script = ExtResource("12_82xsv")
 displacement_strength = 50
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement2/Displacer7" unique_id=147777685]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ocean Surface Displacement/Ocean Surface Displacement2/Displacer7" unique_id=147777685]
 mesh = SubResource("SphereMesh_221mh")
 
 [node name="Camera Head" type="Node3D" parent="." unique_id=926081757]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.369537, 6.387513, 0.53881717)
+transform = Transform3D(-0.9047482, 1.8618726e-08, 0.42594683, -1.8618726e-08, 1, -8.325919e-08, -0.42594683, -8.3259195e-08, -0.9047482, -13.915754, 2.386335, -0.15797663)
 
 [node name="Camera" type="Camera3D" parent="Camera Head" unique_id=2088630494]
 transform = Transform3D(0.50901395, 0.35244647, -0.7852938, -1.7898083e-08, 0.91232795, 0.40946043, 0.8607583, -0.20842104, 0.46438763, 1.2268372, 1.246398, 0.14965844)
@@ -283,7 +286,7 @@ script = ExtResource("4_v2yip")
 script = ExtResource("4_074og")
 nodeToMatch = NodePath("..")
 nodeToMatchTo = NodePath("../../World/Ocean")
-weight = 0.501
+weight = 0.109
 
 [node name="FogVolume" type="FogVolume" parent="." unique_id=1943836355]
 shape = 4
@@ -302,7 +305,6 @@ volume_db = -30.0
 autoplay = true
 
 [node name="Buoy" type="MeshInstance3D" parent="." unique_id=296097324 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1532288, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -310,7 +312,7 @@ script = ExtResource("16_veajc")
 water = NodePath("../World/Ocean")
 
 [node name="Buoy2" type="MeshInstance3D" parent="." unique_id=1576161682 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73095703, 29.358398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 29.358398)
 visible = false
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -318,7 +320,7 @@ script = ExtResource("16_veajc")
 water = NodePath("../World/Ocean")
 
 [node name="Buoy_transparent" type="MeshInstance3D" parent="." unique_id=1156773390 node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.7703552, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_vjgfr")
 mesh = SubResource("CapsuleMesh_dssde")
@@ -442,6 +444,7 @@ skeleton = NodePath("../..")
 
 [node name="Ship Actual" type="Node3D" parent="." unique_id=398072818]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 9, 0)
+visible = false
 
 [node name="Ship Debug Mesh" parent="Ship Actual" unique_id=510121189 instance=ExtResource("15_yaehf")]
 visible = false
@@ -453,3 +456,6 @@ mesh = SubResource("BoxMesh_221mh")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship Actual" unique_id=1715369998]
 transform = Transform3D(0.3528275, 0, 0, 0, 3.116927, 0, 0, 0, 0.26250064, -5.4426527, -0.2544434, 0)
 mesh = SubResource("BoxMesh_221mh")
+
+[node name="Ship_Blockout" parent="." unique_id=1312631767 instance=ExtResource("21_getpj")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
