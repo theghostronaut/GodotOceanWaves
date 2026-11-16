@@ -1,10 +1,11 @@
 extends Node
 
 @export var ocean : Node3D
-@export var oceanSurfaceDisplacement : Node3D
+#@export var oceanSurfaceDisplacement : Node3D
 @export var sun : Node3D
 @export var buoyancyProbe : Node3D
 @export var oceanVerticalOffset : float
+@export var worldEnvironment : WorldEnvironment
 
 var initSunBasis
 
@@ -18,6 +19,7 @@ func _physics_process(delta: float) -> void:
 
 	process_ocean(delta)
 	process_sun(delta)
+	process_sky(delta)
 
 func process_ocean(delta: float) -> void:
 	if ocean == null:
@@ -34,11 +36,11 @@ func process_ocean(delta: float) -> void:
 	ocean.basis = Basis(targetRotation)
 
 	# ocean object displacement
-	if oceanSurfaceDisplacement == null:
-		return
+	#if oceanSurfaceDisplacement == null:
+		#return
 	
-	oceanSurfaceDisplacement.global_position = targetPosition
-	oceanSurfaceDisplacement.basis = Basis(targetRotation)
+	#oceanSurfaceDisplacement.global_position = targetPosition
+	#oceanSurfaceDisplacement.basis = Basis(targetRotation)
 
 func process_sun(delta: float) -> void:
 	if sun == null:
@@ -47,4 +49,10 @@ func process_sun(delta: float) -> void:
 	
 	var targetBasis = ocean.basis * initSunBasis
 	sun.basis = Basis(targetBasis)
+
+func process_sky(delta: float) -> void:
+	if worldEnvironment == null:
+		print("World Rotation | No World Environment is set")
+	
+	worldEnvironment.environment.sky_rotation = ocean.rotation
 	

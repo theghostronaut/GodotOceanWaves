@@ -19,16 +19,12 @@ uniform sampler2D foam_noise_tex : repeat_enable, filter_linear_mipmap;
 uniform sampler2D depth_texture : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 
-//group_uniforms objectDisplacement;
-//uniform vec3 displace_obj_position = vec3(0,1,0);
-//uniform float displace_obj_scale = 1.0;
-//uniform float displace_obj_strength = 2.0;
-
-// array
+// object displacement, written to from displace_surface.gd
+// Currently set to max 8 objects
 group_uniforms objectDisplacementArray;
-uniform vec3[3] displace_obj_positions;
-uniform float[3] displace_obj_scales;
-uniform float[3] displace_obj_strengths;
+uniform vec3[8] displace_obj_positions;
+uniform float[8] displace_obj_scales;
+uniform float[8] displace_obj_strengths;
 uniform int displace_obj_amount = 1;
 
 group_uniforms cascade_data;

@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var displacementStrength = 1
+@export var displacement_strength = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

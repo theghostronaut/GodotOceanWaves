@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ng6o4vdpdpqb"]
 
-[ext_resource type="Script" uid="uid://dk0cemy5jg3an" path="res://assets/water/displace_surface.gd" id="1_ac404"]
+[ext_resource type="Script" uid="uid://dk0cemy5jg3an" path="res://assets/water/surface_displacement.gd" id="1_ac404"]
 [ext_resource type="Material" uid="uid://csfxf8ojpi7s1" path="res://testing/deformation_mat.tres" id="1_tdb3q"]
 [ext_resource type="Script" uid="uid://bqtrj6lb2yvdo" path="res://assets/player/camera.gd" id="3_tbw6x"]
 
@@ -27,11 +27,8 @@ albedo_color = Color(0.7176471, 0.5254902, 0.3019608, 0.58431375)
 [sub_resource type="SphereMesh" id="SphereMesh_221mh"]
 material = SubResource("StandardMaterial3D_tbw6x")
 
-[node name="ShaderTesting" type="Node3D" unique_id=2098125130 node_paths=PackedStringArray("meshInstance", "displacerObject")]
+[node name="ShaderTesting" type="Node3D" unique_id=2098125130]
 script = ExtResource("1_ac404")
-meshInstance = NodePath("MeshInstance3D")
-displacementStrength = 7.695
-displacerObject = NodePath("Node3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2023327509]
 environment = SubResource("Environment_8xkfl")
